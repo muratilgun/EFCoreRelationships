@@ -16,7 +16,10 @@ namespace EFCoreRelationships.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Character>>> Get(int userId)
         {
-            var characters = await _context.Characters.Where(c => c.UserId == userId).ToListAsync();
+            var characters = await _context.Characters
+                .Where(c => c.UserId == userId)
+                .Include(c=> c.Weapon)
+                .ToListAsync();
 
             return characters;
         }
